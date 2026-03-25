@@ -1,0 +1,128 @@
+{% schema %}
+{
+  "name": "Product Grid Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Walkin | More Volume Less Pressure"
+    }
+    
+    
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Product Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "imagebottom",
+          "label": "Image"
+        }
+        
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Product Grid Banner"
+    }
+  ]
+}
+{% endschema %}
+
+<div class="product-grid-banner">
+  <div class="container">
+    
+    <div class="grid">
+      {% for block in section.blocks %}
+        <div class="grid-item">
+          {% if block.settings.image %}
+            <img 
+              src="{{ block.settings.image | image_url: width: 600 }}" 
+              alt="product"
+              loading="lazy"
+            >
+          {% endif %}
+          <div class="bottom_img">
+            {% if block.settings.image %}
+            <img 
+              src="{{ block.settings.imagebottom | image_url: width: 600 }}" 
+              alt="product"
+              loading="lazy"
+            >
+          {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+      
+    </div>
+
+    <div class="banner-text">
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.product-grid-banner {
+  padding: 10px 20px;
+  text-align: center;
+}
+
+.product-grid-banner .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.product-grid-banner .grid {
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    width: 100%;
+    margin:0;
+}
+
+.product-grid-banner .grid-item img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.product-grid-banner .banner-text {
+  margin-top: 0;
+}
+.grid-item {
+    width: 100%;
+    max-width: 990px;
+    position: relative;
+}
+.product-grid-banner h2 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  margin:5px 0 10px;
+}
+.bottom_img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 5px;
+}
+
+ 
+
+/* Desktop */
+@media (min-width: 768px) {
+ 
+}
+</style>
