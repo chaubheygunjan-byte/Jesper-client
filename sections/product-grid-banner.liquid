@@ -2,13 +2,19 @@
 {
   "name": "Product Grid Banner",
   "settings": [
+      {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class",
+      "info": "Add a unique class to style this section differently when reused (e.g. banner-v2)",
+      "placeholder": "e.g. banner-v2"
+    },
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Walkin | More Volume Less Pressure"
     }
-    
     
   ],
   "blocks": [
@@ -26,7 +32,6 @@
           "id": "imagebottom",
           "label": "Image"
         }
-        
       ]
     }
   ],
@@ -39,7 +44,7 @@
 }
 {% endschema %}
 
-<div class="product-grid-banner">
+<div class="product-grid-banner {{ section.settings.custom_class }}">
   <div class="container">
     
     <div class="grid">
@@ -47,23 +52,22 @@
         <div class="grid-item">
           {% if block.settings.image %}
             <img 
-              src="{{ block.settings.image | image_url: width: 600 }}" 
+              src="{{ block.settings.image | image_url: width: 2000 }}" 
               alt="product"
               loading="lazy"
             >
           {% endif %}
           <div class="bottom_img">
-            {% if block.settings.image %}
-            <img 
-              src="{{ block.settings.imagebottom | image_url: width: 600 }}" 
-              alt="product"
-              loading="lazy"
-            >
-          {% endif %}
+            {% if block.settings.imagebottom %}
+              <img 
+                src="{{ block.settings.imagebottom | image_url: width: 2000 }}" 
+                alt="product"
+                loading="lazy"
+              >
+            {% endif %}
           </div>
         </div>
       {% endfor %}
-      
     </div>
 
     <div class="banner-text">
@@ -85,11 +89,11 @@
 }
 
 .product-grid-banner .grid {
-    display: flex;
-    gap: 40px;
-    justify-content: center;
-    width: 100%;
-    margin:0;
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
 }
 
 .product-grid-banner .grid-item img {
@@ -101,28 +105,24 @@
 .product-grid-banner .banner-text {
   margin-top: 0;
 }
+
 .grid-item {
-    width: 100%;
-    max-width: 990px;
-    position: relative;
+  width: 100%;
+  max-width: 990px;
+  position: relative;
 }
+
 .product-grid-banner h2 {
   font-size: 14px;
   font-weight: 400;
   color: #000;
-  margin:5px 0 10px;
+  margin: 5px 0 10px;
 }
+
 .bottom_img {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 5px;
-}
-
- 
-
-/* Desktop */
-@media (min-width: 768px) {
- 
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5px;
 }
 </style>

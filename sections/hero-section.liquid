@@ -1,0 +1,366 @@
+
+<style>
+  .hero-banner {
+    padding: 60px 0 90px;
+    overflow: hidden;
+  }
+
+  .hero-banner__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 60px;
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .hero-banner__content ,.hero-banner__images{
+    width: 50%;
+  }
+.hero-banner__images {
+    position: relative;
+}
+ 
+  .hero-banner__heading {
+    font-family: Manrope;
+    font-size: clamp(36px, 42px, 72px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin: 0 0 24px;
+  }
+
+  .hero-banner__subtext {
+    color: #44474F;
+    font-family: "Plus Jakarta Sans";
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 28px; /* 140% */
+    max-width: 480px;
+    margin: 0 0 30px;
+  }
+
+  .hero-banner__buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hero-banner__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-family: Manrope;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .hero-banner__btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  .hero-banner__btn--secondary {
+    border: 1px solid #ddd;
+  }
+ 
+  .hero-banner__grid {
+    background: #fff;
+    border-radius: 24px;
+    padding: 0;
+    width: 100%;
+    height:100%;
+    overflow: hidden;
+  }
+
+  .hero-banner__grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+     height:100%;
+  }
+
+  .hero-banner__grid-item img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+.hero-banner__images {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    aspect-ratio: 4/4;
+    position: relative;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.00);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+  .hero-banner__placeholder {
+    width: 100%;
+    height: 200px;
+  }
+  .shape_box {
+    border-radius: 9999px;
+    opacity: 0.3;
+    background: #C4E3FF;
+    mix-blend-mode: multiply;
+    filter: blur(32px);
+    width: 192px;
+    height: 192px;
+    position: absolute;
+    left: -40px;
+    bottom: -40px;
+    display: block !important;
+}
+.hero-banner__images::after {
+    background: linear-gradient(0deg, rgba(0, 14, 39, 0.20) 0%, rgba(0, 14, 39, 0.00) 100%);
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
+}
+  /* Tablet */
+  @media (max-width: 992px) {
+    .hero-banner__container {
+      gap: 40px;
+      padding: 0 30px;
+    }
+
+    .hero-banner__images {
+      max-width: 400px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .hero-banner {
+      padding: 40px 0;
+    }
+
+    .hero-banner__container {
+      flex-direction: column;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-banner__content {
+      width: 100%;
+    }
+  .hero-banner__subtext{
+    max-width:100%;
+    }
+    .hero-banner__buttons {
+      justify-content: center;
+    }
+
+    .hero-banner__images {
+      max-width: 100%;
+      width: 100%;
+    }
+
+    .hero-banner__grid {
+      gap: 12px;
+      padding: 12px;
+    }
+    .hero-banner__container {
+	flex-direction: column-reverse;
+	gap: 40px;
+}
+  }
+
+@media (max-width: 768px) {
+  .hero-banner__images {
+	aspect-ratio: inherit;
+	max-height: 300px;
+}
+.hero-banner__images img {
+	border-radius: 14px;
+}
+.hero-banner {
+	padding: 0 0 40px;
+}
+.hero-banner__heading {
+	text-align: left;
+	font-size: 30px;
+	margin: 0 0 10px;
+}
+.hero-banner__subtext {
+	text-align: left;
+	font-size: 16px;
+	margin: 0 0 20px;
+}
+
+
+
+
+}
+
+</style>
+
+
+
+<section class="hero-banner {{ section.settings.custom_class }} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="background-color: {{ section.settings.bg_color }};">
+  <div class="hero-banner__container">
+    <div class="hero-banner__content">
+      <h1 class="hero-banner__heading" style="color: {{ section.settings.heading_color }};">
+        {{ section.settings.heading }}
+      </h1>
+      <p class="hero-banner__subtext" style="color: {{ section.settings.text_color }};">
+        {{ section.settings.subtext }}
+      </p>
+      <div class="hero-banner__buttons">
+        {% if section.settings.btn1_text != blank %}
+          <a href="{{ section.settings.btn1_link }}" class="hero-banner__btn hero-banner__btn--primary" style="background-color: {{ section.settings.btn1_bg }}; color: {{ section.settings.btn1_text_color }};">
+            {{ section.settings.btn1_text }}
+          </a>
+        {% endif %}
+        {% if section.settings.btn2_text != blank %}
+          <a href="{{ section.settings.btn2_link }}" class="hero-banner__btn hero-banner__btn--secondary" style="background-color: {{ section.settings.btn2_bg }}; color: {{ section.settings.btn2_text_color }};">
+            {{ section.settings.btn2_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="hero-banner__images">
+        <div class="shape_box"></div>
+      <div class="hero-banner__grid">
+        {% for block in section.blocks %}
+          <div class="hero-banner__grid-item" {{ block.shopify_attributes }}>
+            {% if block.settings.image %}
+              <img
+                src="{{ block.settings.image | image_url: width: 600 }}"
+                srcset="{{ block.settings.image | image_url: width: 300 }} 300w, {{ block.settings.image | image_url: width: 600 }} 600w"
+                sizes="(max-width: 768px) 45vw, 280px"
+                alt="{{ block.settings.image.alt | default: section.settings.heading }}"
+                loading="lazy"
+                width="600"
+                height="{{ 600 | divided_by: block.settings.image.aspect_ratio | round }}"
+              >
+            {% else %}
+              {{ 'product-1' | placeholder_svg_tag: 'hero-banner__placeholder' }}
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Sundere Skridt for en Bedre Hverdag"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Oplev fusionen mellem klinisk ekspertise og skandinavisk design. Vores fodtøj er skabt til at give dine fødder den frihed, de fortjener."
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Button 1 Text",
+      "default": "KØB NU"
+    },
+    {
+      "type": "url",
+      "id": "btn1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Button 2 Text",
+      "default": "SE KOLLEKTION"
+    },
+    {
+      "type": "url",
+      "id": "btn2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#0a1628"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a3a6b"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#8a95a5"
+    },
+    {
+      "type": "color",
+      "id": "btn1_bg",
+      "label": "Button 1 Background",
+      "default": "#0f2a4a"
+    },
+    {
+      "type": "color",
+      "id": "btn1_text_color",
+      "label": "Button 1 Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn2_bg",
+      "label": "Button 2 Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn2_text_color",
+      "label": "Button 2 Text Color",
+      "default": "#0a1628"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class",
+      "placeholder": "e.g. hero-v2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Product Image",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Product Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

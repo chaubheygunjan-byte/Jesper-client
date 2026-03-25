@@ -1,0 +1,347 @@
+{% schema %}
+{
+  "name": "Testimonial Quote",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "quote_icon_color",
+      "label": "Quote Icon Color",
+      "default": "#2a9d8f"
+    },
+    {
+      "type": "color",
+      "id": "quote_color",
+      "label": "Quote Text Color",
+      "default": "#0a1628"
+    },
+    {
+      "type": "color",
+      "id": "name_color",
+      "label": "Author Name Color",
+      "default": "#0a1628"
+    },
+    {
+      "type": "color",
+      "id": "role_color",
+      "label": "Author Role Color",
+      "default": "#6b7280"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider Line Color",
+      "default": "#e5e7eb"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class",
+      "placeholder": "e.g. quote-v2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "Efter år med fodsmerter har Wallin Footwear fuldstændig ændret min hverdag. Jeg kan nu gå lange ture uden ubehag. Den bedste investering i mit helbred nogensinde."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Author Name",
+          "default": "Mette Jensen"
+        },
+        {
+          "type": "text",
+          "id": "role",
+          "label": "Author Role / Info",
+          "default": "Kunde gennem 2 år"
+        },
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Author Photo"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Testimonial Quote",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Efter år med fodsmerter har Wallin Footwear fuldstændig ændret min hverdag. Jeg kan nu gå lange ture uden ubehag. Den bedste investering i mit helbred nogensinde.",
+            "author": "Mette Jensen",
+            "role": "Kunde gennem 2 år"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section class="tq-section {{ section.settings.custom_class }} {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}" style="background-color: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="tq-container">
+    <div class="tq-divider" style="background-color: {{ section.settings.divider_color }};"></div>
+
+    {% if section.blocks.size > 1 %}
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+      <div class="swiper tq-swiper-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="tq-card">
+                <div class="tq-card__icon">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="34" height="24" viewBox="0 0 34 24" fill="none">
+  <path d="M3.4 24L8 16C5.8 16 3.91667 15.2167 2.35 13.65C0.783333 12.0833 0 10.2 0 8C0 5.8 0.783333 3.91667 2.35 2.35C3.91667 0.783333 5.8 0 8 0C10.2 0 12.0833 0.783333 13.65 2.35C15.2167 3.91667 16 5.8 16 8C16 8.76667 15.9083 9.475 15.725 10.125C15.5417 10.775 15.2667 11.4 14.9 12L8 24H3.4ZM21.4 24L26 16C23.8 16 21.9167 15.2167 20.35 13.65C18.7833 12.0833 18 10.2 18 8C18 5.8 18.7833 3.91667 20.35 2.35C21.9167 0.783333 23.8 0 26 0C28.2 0 30.0833 0.783333 31.65 2.35C33.2167 3.91667 34 5.8 34 8C34 8.76667 33.9083 9.475 33.725 10.125C33.5417 10.775 33.2667 11.4 32.9 12L26 24H21.4ZM8 11C8.83333 11 9.54167 10.7083 10.125 10.125C10.7083 9.54167 11 8.83333 11 8C11 7.16667 10.7083 6.45833 10.125 5.875C9.54167 5.29167 8.83333 5 8 5C7.16667 5 6.45833 5.29167 5.875 5.875C5.29167 6.45833 5 7.16667 5 8C5 8.83333 5.29167 9.54167 5.875 10.125C6.45833 10.7083 7.16667 11 8 11ZM26 11C26.8333 11 27.5417 10.7083 28.125 10.125C28.7083 9.54167 29 8.83333 29 8C29 7.16667 28.7083 6.45833 28.125 5.875C27.5417 5.29167 26.8333 5 26 5C25.1667 5 24.4583 5.29167 23.875 5.875C23.2917 6.45833 23 7.16667 23 8C23 8.83333 23.2917 9.54167 23.875 10.125C24.4583 10.7083 25.1667 11 26 11Z" fill="#C4E3FF"/>
+</svg>
+                </div>
+                <p class="tq-card__quote" style="color: {{ section.settings.quote_color }};">
+                  "{{ block.settings.quote }}"
+                </p>
+                <div class="tq-card__author">
+                  {% if block.settings.avatar %}
+                    <img class="tq-card__avatar" src="{{ block.settings.avatar | image_url: width: 96 }}" alt="{{ block.settings.author }}" width="48" height="48" loading="lazy">
+                  {% else %}
+                    <div class="tq-card__avatar-placeholder">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                      </svg>
+                    </div>
+                  {% endif %}
+                  <p class="tq-card__name" style="color: {{ section.settings.name_color }};">{{ block.settings.author }}</p>
+                  {% if block.settings.role != blank %}
+                    <p class="tq-card__role" style="color: {{ section.settings.role_color }};">{{ block.settings.role }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="tq-nav">
+          <button class="tq-nav__btn tq-prev-{{ section.id }}" aria-label="Previous">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          </button>
+          <button class="tq-nav__btn tq-next-{{ section.id }}" aria-label="Next">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          </button>
+        </div>
+      </div>
+
+    {% else %}
+      {% for block in section.blocks %}
+        <div class="tq-card" {{ block.shopify_attributes }}>
+          <div class="tq-card__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="34" height="24" viewBox="0 0 34 24" fill="none">
+            <path d="M3.4 24L8 16C5.8 16 3.91667 15.2167 2.35 13.65C0.783333 12.0833 0 10.2 0 8C0 5.8 0.783333 3.91667 2.35 2.35C3.91667 0.783333 5.8 0 8 0C10.2 0 12.0833 0.783333 13.65 2.35C15.2167 3.91667 16 5.8 16 8C16 8.76667 15.9083 9.475 15.725 10.125C15.5417 10.775 15.2667 11.4 14.9 12L8 24H3.4ZM21.4 24L26 16C23.8 16 21.9167 15.2167 20.35 13.65C18.7833 12.0833 18 10.2 18 8C18 5.8 18.7833 3.91667 20.35 2.35C21.9167 0.783333 23.8 0 26 0C28.2 0 30.0833 0.783333 31.65 2.35C33.2167 3.91667 34 5.8 34 8C34 8.76667 33.9083 9.475 33.725 10.125C33.5417 10.775 33.2667 11.4 32.9 12L26 24H21.4ZM8 11C8.83333 11 9.54167 10.7083 10.125 10.125C10.7083 9.54167 11 8.83333 11 8C11 7.16667 10.7083 6.45833 10.125 5.875C9.54167 5.29167 8.83333 5 8 5C7.16667 5 6.45833 5.29167 5.875 5.875C5.29167 6.45833 5 7.16667 5 8C5 8.83333 5.29167 9.54167 5.875 10.125C6.45833 10.7083 7.16667 11 8 11ZM26 11C26.8333 11 27.5417 10.7083 28.125 10.125C28.7083 9.54167 29 8.83333 29 8C29 7.16667 28.7083 6.45833 28.125 5.875C27.5417 5.29167 26.8333 5 26 5C25.1667 5 24.4583 5.29167 23.875 5.875C23.2917 6.45833 23 7.16667 23 8C23 8.83333 23.2917 9.54167 23.875 10.125C24.4583 10.7083 25.1667 11 26 11Z" fill="#C4E3FF"/>
+            </svg>
+          </div>
+          <p class="tq-card__quote" style="color: {{ section.settings.quote_color }};">
+            "{{ block.settings.quote }}"
+          </p>
+          <div class="tq-card__author">
+            {% if block.settings.avatar %}
+              <img class="tq-card__avatar" src="{{ block.settings.avatar | image_url: width: 96 }}" alt="{{ block.settings.author }}" width="48" height="48" loading="lazy">
+            {% else %}
+              <div class="tq-card__avatar-placeholder">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+              </div>
+            {% endif %}
+            <p class="tq-card__name" style="color: {{ section.settings.name_color }};">{{ block.settings.author }}</p>
+            {% if block.settings.role != blank %}
+              <p class="tq-card__role" style="color: {{ section.settings.role_color }};">{{ block.settings.role }}</p>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="tq-divider" style="background-color: {{ section.settings.divider_color }};"></div>
+  </div>
+</section>
+
+<style>
+  .tq-section {
+    overflow: hidden;
+  }
+  section.tq-section {
+    border-bottom: 24px solid #F8F9FA;
+}
+
+  .tq-container {
+    max-width: 910px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .tq-divider {
+    height: 1px;
+    width: 100%;
+  }
+
+  .tq-card {
+    text-align: center;
+    padding: 48px 0;
+  }
+
+  .tq-card__icon {
+    margin-bottom: 24px;
+  }
+
+  .tq-card__quote {
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(18px, 20px, 26px);
+    color: #000E27;
+    text-align: center;
+    font-style: normal;
+    font-weight: 600;
+    line-height:  120%;
+  }
+
+  .tq-card__author {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .tq-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 4px;
+  }
+
+  .tq-card__avatar-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+
+  .tq-card__name {
+    color: #000E27;
+    text-align: center;
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  .tq-card__role {
+    color: #44474F;
+    text-align: center;
+    font-family: "Plus Jakarta Sans";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;  
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  /* Swiper nav */
+  .tq-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    padding-bottom: 16px;
+  }
+
+  .tq-nav__btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid #d1d5db;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .tq-nav__btn:hover {
+    border-color: #0a1628;
+    color: #0a1628;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .tq-container {
+      padding: 0 20px;
+    }
+
+    .tq-card {
+      padding: 36px 0;
+    }
+  }
+</style>
+
+{% if section.blocks.size > 1 %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    new Swiper('.tq-swiper-{{ section.id }}', {
+      slidesPerView: 1,
+      spaceBetween: 0,
+      loop: true,
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      navigation: {
+        prevEl: '.tq-prev-{{ section.id }}',
+        nextEl: '.tq-next-{{ section.id }}'
+      }
+    });
+  });
+</script>
+{% endif %}

@@ -383,11 +383,20 @@
 .footer-block-image.left {
   justify-content: flex-start;
 }
-
-.footer-block-image.center {
-  justify-content: center;
+.footer-block__details-content p a {
+	color: #172554 !important;
+	text-decoration: none !important;
 }
-
+ .footer-social-icons span {
+	display: flex;
+	align-items: center;
+	color: #172554;
+	font-size: 21px;
+}
+.footer-block__details-content p a:first-child {
+	display: inline-block;
+	margin-bottom: 10px;
+}
 .footer-block-image.right {
   justify-content: flex-end;
 }

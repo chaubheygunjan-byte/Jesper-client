@@ -13,6 +13,7 @@
     }
   }
 {%- endstyle -%}
+<div class="{{ section.settings.custom_class }}">
 
 <div class="isolate{% unless section.settings.full_width %} page-width{% endunless %}">
   <div class="rich-text content-container color-{{ section.settings.color_scheme }} gradient{% if section.settings.full_width %} rich-text--full-width content-container--full-width{% endif %} section-{{ section.id }}-padding">
@@ -93,7 +94,7 @@
     </div>
   </div>
 </div>
-
+</div>
 {% schema %}
 {
   "name": "t:sections.rich-text.name",
@@ -103,6 +104,13 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+     {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class",
+      "info": "Add a unique class to style this section differently when reused (e.g. banner-v2)",
+      "placeholder": "e.g. banner-v2"
+    },
     {
       "type": "select",
       "id": "desktop_content_position",

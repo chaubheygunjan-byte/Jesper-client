@@ -9,6 +9,8 @@
   max-width: 1310px;
   margin: 0 auto;
   padding:0 15px;
+  padding-bottom:100px;
+  border-bottom:1px solid #000;
 }
 
 .section-heading {
@@ -62,19 +64,9 @@
   max-width: 100%;
 }
 
-.cta-btn {
-  display: inline-block;
-  margin-top: 40px;
-  padding: 12px 30px;
-  background: #1a2a44;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 30px;
-  font-size: 14px;
-  letter-spacing: 1px;
-}
+
 .block_desc {
-    padding: 0 50px;
+    padding: 0 50px 40px;
 }
 
 /* Desktop */
@@ -93,7 +85,7 @@
 </style>
 
 
-<section class="healthy-shoes">
+<section class="healthy-shoes {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
   <div class="container">
     
     <h2 class="section-heading">{{ section.settings.heading }}</h2>

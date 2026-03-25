@@ -1,0 +1,372 @@
+{% schema %}
+{
+  "name": "Tips With Image",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "5 Gode Råd til Valg af Sunde Sko"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Side Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image Position",
+      "default": "right",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#0a1628"
+    },
+    {
+      "type": "color",
+      "id": "number_bg",
+      "label": "Number Badge Background",
+      "default": "#0f2a4a"
+    },
+    {
+      "type": "color",
+      "id": "number_color",
+      "label": "Number Badge Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tip_color",
+      "label": "Tip Text Color",
+      "default": "#374151"
+    },
+    {
+      "type": "color",
+      "id": "image_bg",
+      "label": "Image Card Background",
+      "default": "#d5ece8"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image Card Radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS Class",
+      "placeholder": "e.g. tips-v2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tip",
+      "name": "Tip",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Tip Text",
+          "default": "Sørg for god plads til tæerne – dine tæer må ikke presses sammen."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 10,
+  "presets": [
+    {
+      "name": "Tips With Image",
+      "blocks": [
+        {
+          "type": "tip",
+          "settings": {
+            "text": "Sørg for god plads til tæerne – dine tæer må ikke presses sammen."
+          }
+        },
+        {
+          "type": "tip",
+          "settings": {
+            "text": "Vælg sko med en fast hælkappe for optimal stabilitet og støtte."
+          }
+        },
+        {
+          "type": "tip",
+          "settings": {
+            "text": "Gå efter sko med stødabsorbering for at skåne dine led ved hvert skridt."
+          }
+        },
+        {
+          "type": "tip",
+          "settings": {
+            "text": "Tænk om sålen kan tages ud, hvis du har behov for individuelle indlæg."
+          }
+        },
+        {
+          "type": "tip",
+          "settings": {
+            "text": "Prøv skoene sidst på dagen, hvor dine fødder ofte er mest hævede."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section class="tips-section {{ section.settings.custom_class }}" style="background-color: {{ section.settings.bg_color }}; padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;">
+  <div class="tips-section__container">
+    <div class="tips-section__layout {% if section.settings.image_position == 'left' %}tips-section__layout--reversed{% endif %}">
+
+      <div class="tips-section__content">
+        {% if section.settings.heading != blank %}
+          <h2 class="tips-section__heading" style="color: {{ section.settings.heading_color }};">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        <div class="tips-section__list">
+          {% for block in section.blocks %}
+            <div class="tips-item" {{ block.shopify_attributes }}>
+              <span class="tips-item__number" style="background-color: {{ section.settings.number_bg }}; color: {{ section.settings.number_color }};">
+                {{ forloop.index }}
+              </span>
+              <p class="tips-item__text" style="color: {{ section.settings.tip_color }};">
+                {{ block.settings.text }}
+              </p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <div class="tips-section__image-wrap">
+        <div class="tips-section__image-card" style="background-color: {{ section.settings.image_bg }}; border-radius: {{ section.settings.image_radius }}px;">
+          {% if section.settings.image %}
+            <img
+              src="{{ section.settings.image | image_url: width: 800 }}"
+              srcset="{{ section.settings.image | image_url: width: 400 }} 400w, {{ section.settings.image | image_url: width: 800 }} 800w"
+              sizes="(max-width: 768px) 90vw, 450px"
+              alt="{{ section.settings.heading }}"
+              loading="lazy"
+              width="800"
+              height="{{ 800 | divided_by: section.settings.image.aspect_ratio | round }}"
+            >
+          {% else %}
+            <div class="tips-section__placeholder">
+              <span class="tips-section__placeholder-top">SAFE FIT GUIDE</span>
+              <span class="tips-section__placeholder-bottom">SAFE FOR WORK</span>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .tips-section {
+    overflow: hidden;
+  }
+
+  .tips-section__container {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 60px;
+  }
+
+  .tips-section__layout {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .tips-section__layout--reversed {
+    flex-direction: row-reverse;
+  }
+
+  .tips-section__content {
+   width:50%;
+  }
+
+  .tips-section__heading {
+    font-family: "Manrope", sans-serif;
+    font-size: clamp(24px, 3vw, 36px);
+    font-weight: 700;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 30px;
+  }
+
+  .tips-section__list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tips-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .tips-item__number {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Manrope", sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+    margin-top: 1px;
+  }
+
+  .tips-item__text {
+    color: #44474F;
+    font-family: "Plus Jakarta Sans";
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 26px; /* 162.5% */
+    margin: 0;
+  }
+
+  .tips-section__image-wrap {
+    min-width: 0;
+    width: 50%;
+    border-radius: 48px;
+    background: #F3F4F5;
+    padding: 32px;
+  }
+
+  .tips-section__image-card {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+  }
+
+  .tips-section__image-card img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* Placeholder when no image */
+  .tips-section__placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 180px;
+    padding: 40px 0;
+    width: 100%;
+  }
+
+  .tips-section__placeholder-top,
+  .tips-section__placeholder-bottom {
+    font-family: "Manrope", sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    color: #0a1628;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  /* Tablet */
+  @media (max-width: 992px) {
+    .tips-section__container {
+      padding: 0 30px;
+    }
+
+    .tips-section__layout {
+      gap: 40px;
+    }
+
+    .tips-section__image-wrap {
+      max-width: 360px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .tips-section__container {
+      padding: 0 20px;
+    }
+
+.tips-section__image-wrap {
+	border-radius: 15px;
+	padding: 12px;
+}
+
+    .tips-section__heading {
+      margin-bottom: 24px;
+    }
+
+    .tips-section__image-card {
+      padding: 24px;
+    }
+  }
+
+@media (max-width: 767px) {
+  .tips-section__layout,
+    .tips-section__layout--reversed {
+      flex-direction: column;
+    }
+      
+
+    .tips-section__image-wrap {
+      max-width: 100%;
+      width: 100%;
+    }
+  .tips-section__content {
+   width:100%;
+   order:2;
+  }
+
+    }
+</style>
